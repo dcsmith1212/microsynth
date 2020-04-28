@@ -3,20 +3,38 @@
 <html>
 
 <head>
+    <link rel="stylesheet" href="styles/styles.css">
     <title>Microsynth</title>
 </head>
 
 <body>
     <h1>Microsynth</h1>
 
-    <div id="waveform"></div>
-
-    <button id="play-pause">Play/Pause</button>
-    <button id="stop">Stop</button>
-
-    <div class="sliderContainer">
-        <input type="range" min="440" max="880" value="440" class="freqSlider" id="freqSlider">
+    <div class="keys-container">
+        <div class="accidental-container">
+            <button class="key offset"></button>
+            <button class="key accidental" id="key">C#</button>
+            <button class="key accidental" id="key">D#</button>
+            <button class="key hollow" id="key"></button>
+            <button class="key accidental" id="key">F#</button>
+            <button class="key accidental" id="key">G#</button>
+            <button class="key accidental" id="key">A#</button>
+        </div>
+        <div class="naturals-container">
+            <button class="key" id="key">C</button>
+            <button class="key" id="key">D</button>
+            <button class="key" id="key">E</button>
+            <button class="key" id="key">F</button>
+            <button class="key" id="key">G</button>
+            <button class="key" id="key">A</button>
+            <button class="key" id="key">B</button>
+        </div>
     </div>
+
+
+    <!-- <button id="play-pause">Play/Pause</button>
+    <button id="stop">Stop</button> -->
+
 
     <script src="https://unpkg.com/wavesurfer.js"></script>
     <script src="/scripts/bundle.js"></script>

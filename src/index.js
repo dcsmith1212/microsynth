@@ -1,41 +1,40 @@
 import { notes } from './notes'
 
-const playPauseBtn = document.getElementById('play-pause');
+// const playPauseBtn = document.getElementById('play-pause');
 const stopBtn = document.getElementById('stop');
-const freqSlider = document.getElementById('freqSlider');
 
-const wavesurfer = WaveSurfer.create({
-    container: '#waveform',
-    waveColor: 'blue',
-    progressColor: 'purple'
-});
 
-wavesurfer.load('audio/test.wav');
+
+
 
 
 
 let audioCtx = new AudioContext();
-let oscillator = audioCtx.createOscillator();
-oscillator.frequency.value = 440;
 
-freqSlider.addEventListener('input', e => {
-    console.log(e.target.value);
-    oscillator.frequency.value = parseInt(e.target.value);
-})
+function createOscillator(note, shape = 'sine') {
+    const oscillator = audioCtx.createOscillator();
+    oscillator.frequency.value = notes[note];
+    oscillator.type = shape;
+    oscillator.connect(audioCtx.destination);
+    return oscillator;
+}
 
-let playing = false;
+
+const oscillator1 = createOscillator('C4');
+// const oscillator2 = createOscillator('E4');
+// const oscillator3 = createOscillator('G4');
+// const oscillator4 = createOscillator('C5');
+
 playPauseBtn.addEventListener('click', () => {
-    playing ? wavesurfer.pause() : wavesurfer.play();
-    playing = !playing;
+    oscillator1.start();
+    // oscillator2.start();
+    // oscillator3.start();
+    // oscillator4.start();
 })
 
 stopBtn.addEventListener('click', () => {
-    playing = false;
-    wavesurfer.stop();
-    oscillator.stop();
+    oscillator1.stop();
+    // oscillator2.stop();
+    // oscillator3.stop();
+    // oscillator4.stop();
 })
-
-oscillator.connect(audioCtx.destination);
-oscillator.start()
-//oscillator.stop(audioCtx.currentTime + 3);
-

@@ -4,10 +4,6 @@ const letters = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
 const noteNames = [];
 const notes = {};
 
-// Reference from A0, to maintain numerical precision 
-const referenceFreq = 27.5;
-const referenceIndex = noteNames.findIndex(name => name === 'A0');
-
 // Generate note names with octave number
 let noteIndex = 0;
 for (let octave = MIN_OCTAVE; octave < MAX_OCTAVE; octave++) {
@@ -24,6 +20,10 @@ for (let octave = MIN_OCTAVE; octave < MAX_OCTAVE; octave++) {
         }
     });
 }
+
+// Reference from A0, to maintain numerical precision 
+const referenceFreq = 27.5;
+const referenceIndex = noteNames.findIndex(name => name === 'A0');
 
 // Create mapping from note names to frequency
 for (let i = referenceIndex; i < noteNames.length; i++) {
