@@ -3,7 +3,8 @@ import { notes } from './notes'
 const masterGainCtrl = document.querySelector('#master-gain');
 const masterMuteCtrl = document.querySelector('#master-mute');
 const masterPanCtrl = document.querySelector('#master-pan');
-const waveletCtrl = document.querySelector('#wavelet');
+const playPauseBtn = document.querySelector('#play-pause');
+const waveletSpacingSldr = document.querySelector('#wavelet-sldr');
 
 const activeKeys = {};
 
@@ -38,17 +39,6 @@ function createTrack(note, shape = 'sine') {
     return { oscillator, gainNode, panNode };
 }
 
-const waveletDuration = 0.2;
-function applyEnvelope(track) {
-    console.log('applyEnvelope called');
-    track.panNode.pan.value = 2 * Math.random() - 1;
-    track.gainNode.gain.cancelScheduledValues(audioCtx.currentTime);
-    track.gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-    track.gainNode.gain.linearRampToValueAtTime(masterGainCtrl.value, audioCtx.currentTime + (waveletDuration / 2));
-    track.gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime + waveletDuration);
-}
-
-
 // Master controls 
 masterGainCtrl.addEventListener('input', function () {
     masterGainNode.gain.value = this.value;
@@ -64,16 +54,59 @@ masterPanCtrl.addEventListener('input', function () {
 }, false);
 
 
-const meanWaitTime = 0.2;
 
-const randomizeTrackWavelets = track => {
-    let startTime = audioCtx.currentTime
-    for (let i = 0; i < 20; i++) {
-        startTime += 2 * meanWaitTime * Math.random() + waveletDuration
-        console.log(startTime, audioCtx.currentTime)
-        applyEnvelope(track)
-    }
+const waveletDuration = 0.2;
+
+
+let meanWaitTime = 0.2;
+waveletSpacingSldr.addEventListener('input', function () {
+    meanWaitTime = this.value;
+    console.log(meanWaitTime);
+})
+
+function applyEnvelope(track) {
+    track.panNode.pan.value = 2 * Math.random() - 1;
+    track.gainNode.gain.cancelScheduledValues(audioCtx.currentTime);
+    track.gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+    track.gainNode.gain.linearRampToValueAtTime(masterGainCtrl.value, audioCtx.currentTime + (waveletDuration / 2));
+    track.gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime + waveletDuration);
 }
+
+
+const lookahead = 25.0 // msec
+const scheduleAheadTime = 0.1 // sec
+
+function nextWavelet(track) {
+    track.nextWaveletTime += 2 * meanWaitTime * Math.random() + waveletDuration;
+    applyEnvelope(track)
+}
+
+let timerID;
+function scheduler(track) {
+    while (track.nextWaveletTime < audioCtx.currentTime + scheduleAheadTime) {
+        nextWavelet(track);
+    }
+    timerID = window.setTimeout(scheduler, lookahead, track);
+}
+
+playPauseBtn.addEventListener('click', function () {
+    isPlaying = !isPlaying;
+    playPauseBtn.textContent = isPlaying ? 'Pause' : 'Play';
+
+    if (isPlaying) {
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+
+        for (const key in activeKeys) {
+            activeKeys[key].nextWaveletTime = audioCtx.currentTime;
+            scheduler(activeKeys[key])
+        }
+    } else {
+        audioCtx.suspend();
+        window.clearTimeout(timerID);
+    }
+});
 
 
 // Listener for keys
@@ -84,63 +117,17 @@ window.addEventListener('click', e => {
 
         if (activeKeys[noteName]) {
             activeKeys[noteName].oscillator.stop();
-            activeKeys[noteName] = undefined;
+            delete activeKeys[noteName];
+            window.clearTimeout(timerID);
         } else {
             const track = createTrack(noteName);
             track.oscillator.start();
+            track.nextWaveletTime = audioCtx.currentTime;
             activeKeys[noteName] = track;
-        }
-    }
-});
-
-
-
-
-const lookahead = 25.0 // msec
-const scheduleAheadTime = 0.1 // sec
-const waveletsInQueue = [];
-let nextWaveletTime = 0.0; // when the next wavelet is due
-
-function nextWavelet(track) {
-    nextWaveletTime += 2 * meanWaitTime * Math.random() + waveletDuration;
-    applyEnvelope(track)
-    console.log(`nextWaveletTime: ${nextWaveletTime}`);
-}
-
-function scheduleWavelet(time) {
-    waveletsInQueue.push(time);
-    console.log(`waveletsInQueue: ${waveletsInQueue}`);
-}
-
-let timerID;
-let activeTrack;
-function scheduler() {
-    while (nextWaveletTime < audioCtx.currentTime + scheduleAheadTime) {
-        //scheduleWavelet(nextWaveletTime);
-        nextWavelet(activeTrack);
-    }
-    timerID = window.setTimeout(scheduler, lookahead);
-}
-
-waveletCtrl.addEventListener('click', function () {
-    isPlaying = !isPlaying;
-
-    if (isPlaying) {
-        if (audioCtx.state === 'suspended') {
-            audioCtx.resume();
+            scheduler(track)
         }
 
-        nextWaveletTime = audioCtx.currentTime;
-        for (const key in activeKeys) {
-            activeTrack = activeKeys[key]
-            scheduler()
-        }
-    } else {
-        window.clearTimeout(timerID);
+        isPlaying = Object.keys(activeKeys).length > 0 ? true : false;
+        playPauseBtn.textContent = isPlaying ? 'Pause' : 'Play';
     }
-
-    // for (const key in activeKeys) {
-    //     console.log(`Doing key ${key}`);
-    //     randomizeTrackWavelets(activeKeys[key]);
-    // }
 });

@@ -10,11 +10,21 @@ body {
     margin: 0;
 }
 
+h1 {
+    margin-bottom: 50px;
+}
+
+.main-container {
+    display: flex;
+}
+
 .keys-container {
     background: rgb(194, 194, 194);
     border: none;
     padding: 15px 15px;
     margin-bottom: 20px;
+    margin-right: 20px;
+    height: 100%;
 }
 
 .key {
@@ -53,10 +63,80 @@ body {
     background-color: rgb(79, 182, 88);
 }
 
+.master-ctrl-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 15px;
+    background: rgb(194, 194, 194)
+}
+
+.master-ctrl-container h3 {
+    margin-top: 0;
+    margin-bottom: 18px;
+}
+
+.master-ctrl-subcontainer {
+    display: flex;
+}
+
+.fader-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 180px;
+    margin-right: 10px;
+}
+
+.fader {
+    -webkit-appearance: none;
+    height: 120px;
+    width: 10px;
+    border-radius: 4px;  
+    margin: 0 10px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.8;
+    -webkit-transition: .15s;
+    transition: opacity .15s;
+}
+
+.fader:hover {
+    opacity: 1;
+}
+
+.fader::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 10px;
+    border-radius: 50%; 
+    background: rgb(0, 0, 0);
+    cursor: pointer;
+}
+  
+.fader::-moz-range-thumb {
+    width: 25px;
+    height: 10px;
+    border-radius: 4px;
+    border: none;
+    background: rgb(0, 0, 0);;
+    cursor: pointer;
+}
+
+.master-btn-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
 .mute {
+    height: 36px;
+    width: 50px;
     padding: 5px 8px;
     border: 1px solid #333;
+    background: rgb(250, 250, 250);
+    margin-bottom: 10px;
 }
 
 .mute:hover {
@@ -67,3 +147,14 @@ body {
     background: rgb(231, 145, 16);
 }
 
+.play-pause {
+    padding: 5px 8px;
+    border: 1px solid #333;
+    height: 36px;
+    width: 50px;
+    background: rgb(250, 250, 250);
+}
+
+.play-pause:hover {
+    background: #ddd;
+}
