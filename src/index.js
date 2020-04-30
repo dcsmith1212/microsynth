@@ -5,21 +5,16 @@ const masterMuteCtrl = document.querySelector('#master-mute');
 const masterPanCtrl = document.querySelector('#master-pan');
 const playPauseBtn = document.querySelector('#play-pause');
 const waveletSpacingSldr = document.querySelector('#wavelet-sldr');
-
+const waveletLengthSldr = document.querySelector('#wavelet-len-sldr');
 const activeKeys = {};
 
 let isPlaying = false;
+
 let audioCtx = new AudioContext();
-
-
 const masterGainNode = audioCtx.createGain();
-
 const pannerOpts = { pan: 0 };
 const masterPanNode = new StereoPannerNode(audioCtx, pannerOpts);
-
 masterGainNode.connect(masterPanNode);
-// masterGainNode.gain.value = 0;
-
 masterPanNode.connect(audioCtx.destination)
 
 function createTrack(note, shape = 'sine') {
@@ -34,14 +29,14 @@ function createTrack(note, shape = 'sine') {
     gainNode.connect(panNode);
     panNode.connect(masterGainNode);
 
-    gainNode.gain.value = 0;
-
     return { oscillator, gainNode, panNode };
 }
 
 // Master controls 
 masterGainCtrl.addEventListener('input', function () {
     masterGainNode.gain.value = this.value;
+    const sliderValueSpan = masterGainCtrl.parentElement.querySelector('.numerical');
+    sliderValueSpan.textContent = this.value;
 }, false);
 
 masterMuteCtrl.addEventListener('click', function () {
@@ -51,17 +46,20 @@ masterMuteCtrl.addEventListener('click', function () {
 
 masterPanCtrl.addEventListener('input', function () {
     masterPanNode.pan.value = this.value;
+    const sliderValueSpan = masterPanCtrl.parentElement.querySelector('.numerical');
+    sliderValueSpan.textContent = this.value;
 }, false);
 
 
 
-const waveletDuration = 0.2;
-
+let waveletDuration = 0.2;
+waveletLengthSldr.addEventListener('input', function () {
+    waveletDuration = parseFloat(this.value);
+})
 
 let meanWaitTime = 0.2;
 waveletSpacingSldr.addEventListener('input', function () {
-    meanWaitTime = this.value;
-    console.log(meanWaitTime);
+    meanWaitTime = parseFloat(this.value);
 })
 
 function applyEnvelope(track) {

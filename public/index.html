@@ -11,41 +11,58 @@
     <h1>Microsynth</h1>
 
     <div class="main-container">
-        <div class="keys-container">
-            <div class="accidental-container">
-                <button class="key offset"></button>
-                <button class="key accidental" id="key">C#</button>
-                <button class="key accidental" id="key">D#</button>
-                <button class="key hollow" id="key"></button>
-                <button class="key accidental" id="key">F#</button>
-                <button class="key accidental" id="key">G#</button>
-                <button class="key accidental" id="key">A#</button>
+        <div class="left-column-container">
+            <div class="keys-container">
+                <div class="accidental-container">
+                    <button class="key offset"></button>
+                    <button class="key accidental" id="key">C#</button>
+                    <button class="key accidental" id="key">D#</button>
+                    <button class="key hollow" id="key"></button>
+                    <button class="key accidental" id="key">F#</button>
+                    <button class="key accidental" id="key">G#</button>
+                    <button class="key accidental" id="key">A#</button>
+                </div>
+                <div class="naturals-container">
+                    <button class="key" id="key">C</button>
+                    <button class="key" id="key">D</button>
+                    <button class="key" id="key">E</button>
+                    <button class="key" id="key">F</button>
+                    <button class="key" id="key">G</button>
+                    <button class="key" id="key">A</button>
+                    <button class="key" id="key">B</button>
+                </div>
             </div>
-            <div class="naturals-container">
-                <button class="key" id="key">C</button>
-                <button class="key" id="key">D</button>
-                <button class="key" id="key">E</button>
-                <button class="key" id="key">F</button>
-                <button class="key" id="key">G</button>
-                <button class="key" id="key">A</button>
-                <button class="key" id="key">B</button>
+
+            <div class="wavelet-ctrl-container">
+                <h3>Wavelet Controls</h3>
+                <div class="wavelet-range-container">
+                    <span>Wavelet spacing:</span>
+                    <input type="range" id="wavelet-sldr" class="fader horiz-fader" min="0.0001" max="0.5" value="0.2"
+                        step="0.0001">
+                </div>
+                <div class="wavelet-range-container">
+                    <span>Wavelet length:</span>
+                    <input type="range" id="wavelet-len-sldr" class="fader horiz-fader" min="0.005" max="0.5"
+                        value="0.2" step="0.001">
+                </div>
             </div>
         </div>
+
 
         <div class="master-ctrl-container">
             <h3>Master Controls</h3>
             <div class="master-ctrl-subcontainer">
                 <div class="fader-container">
-                    <span>VOL</span>
+                    <span>Vol</span>
                     <input type="range" id="master-gain" class="fader" orient="vertical" min="0" max="2" value="1"
                         step="0.01">
-                    <span>1.234</span>
+                    <span class=numerical>1.00</span>
                 </div>
                 <div class="fader-container">
-                    <span>PAN</span>
+                    <span>Pan</span>
                     <input type="range" id="master-pan" class="fader" orient="vertical" min="-1" max="1" value="0"
                         step="0.01">
-                    <span>1.234</span>
+                    <span class=numerical>0.00</span>
                 </div>
                 <div class="master-btn-container">
                     <button id="master-mute" class="mute">Mute</button>
@@ -55,10 +72,6 @@
         </div>
     </div>
 
-
-    <div class="wavelet-ctrl-container">
-        <input type="range" id="wavelet-sldr" min="0.005" max="0.5" value="0.2" step="0.001">
-    </div>
 
     <!-- <script src="https://unpkg.com/wavesurfer.js"></script> -->
     <script src="/scripts/bundle.js"></script>
