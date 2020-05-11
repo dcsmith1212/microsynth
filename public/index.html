@@ -8,11 +8,13 @@
 </head>
 
 <body>
-    <h1>Microsynth</h1>
+    <div class="header-container container">
+        <p>Microsynth</p>
+    </div>
 
     <div class="main-container">
         <div class="left-column-container">
-            <div class="keys-container">
+            <div class="keys-container container">
                 <div class="accidental-container">
                     <button class="key offset"></button>
                     <button class="key accidental" id="key">C#</button>
@@ -33,7 +35,7 @@
                 </div>
             </div>
 
-            <div class="wavelet-ctrl-container">
+            <div class="wavelet-ctrl-container container">
                 <h3>Wavelet Controls</h3>
                 <div class="wavelet-range-container">
                     <span>Wavelet spacing:</span>
@@ -49,7 +51,7 @@
         </div>
 
 
-        <div class="master-ctrl-container">
+        <div class="master-ctrl-container container">
             <h3>Master Controls</h3>
             <div class="master-ctrl-subcontainer">
                 <div class="fader-container">
@@ -72,6 +74,33 @@
         </div>
     </div>
 
+    <div class="visual-container container">
+        <!-- <div class="visual-y-axis-container">
+            <div class="visual-y-axis-labels">
+                <span class="visual-y-axis-label">100%</span>
+                <span class="visual-y-axis-label">Pan</span>
+                <span class="visual-y-axis-label">-100%</span>
+            </div>
+            <svg height="300" width="16" class="visual-y-axis-bar">
+                <line x1="0" y1="2" x2="100" y2="2" />
+                <line x1="0" y1="150" x2="100" y2="150" />
+                <line x1="0" y1="298" x2="100" y2="298" />
+                <line x1="8" y1="2" x2="8" y2="298" />
+            </svg>
+        </div> -->
+        <div class="visual">
+            <div class="wavelet-vis"></div>
+        </div>
+
+    </div>
+
+    <div class="pan-distro-container container">
+        <h3>Pan Distribution</h3>
+        <input type="radio" id="uniform" name="pan-distro" value="uniform">
+        <label for="uniform">Uniform</label><br>
+        <input type="radio" id="normal" name="pan-distro" value="normal">
+        <label for="normal">Normal (Gaussian)</label><br>
+    </div>
 
     <!-- <script src="https://unpkg.com/wavesurfer.js"></script> -->
     <script src="/scripts/bundle.js"></script>

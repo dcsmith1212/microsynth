@@ -1,8 +1,18 @@
+:root {
+    --box-shadow: 0 10px 20px 0 rgba(26, 167, 143, 0.6);
+}
+
 * {
     box-sizing: border-box;
 }
 
 body {
+    background-image: linear-gradient(
+        0deg,
+        rgba(247,247,247,1) 23.8%,
+        rgba(22, 126, 145, 0.377) 92%
+    );
+    height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
     display: flex;
     flex-direction: column;
@@ -10,8 +20,26 @@ body {
     margin: 0;
 }
 
-h1 {
-    margin-bottom: 50px;
+.container {
+    background: rgb(247,247,247);
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px 0 rgba(26, 167, 143, 0.6);
+    padding: 15px 15px;
+}
+
+.header-container {
+    padding: 32px 32px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.header-container p {
+    font-size: 26px;
+    font-weight: bold;
 }
 
 .main-container {
@@ -26,9 +54,6 @@ h1 {
 }
 
 .keys-container {
-    background: rgb(194, 194, 194);
-    border: none;
-    padding: 15px 15px;
     height: 90px;
     margin-bottom: 20px;
 }
@@ -43,7 +68,7 @@ h1 {
 }
 
 .key:hover {
-    background-color: rgb(238, 238, 238);
+    background: #b6d3cf;
 }
 
 .accidental {
@@ -53,7 +78,7 @@ h1 {
 }
 
 .accidental:hover {
-    background-color: rgb(68, 68, 68);
+    background: #4e746e;
 }
 
 .key.offset {
@@ -70,8 +95,6 @@ h1 {
 }
 
 .wavelet-ctrl-container {
-    background: rgb(194, 194, 194);
-    padding: 15px 15px;
     display: flex;
     flex-direction: column;
 }
@@ -92,9 +115,7 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100%;
-    padding: 15px 15px;
-    background: rgb(194, 194, 194);
+    height: 232px;
 }
 
 .master-ctrl-container h3 {
@@ -129,7 +150,7 @@ h1 {
     width: 10px;
     border-radius: 4px;  
     margin: 0 10px;
-    background: #ebebeb;
+    background: #b6d3cf;
     outline: none;
     opacity: 0.8;
     -webkit-transition: .15s;
@@ -190,7 +211,7 @@ h1 {
 }
 
 .mute:hover {
-    background: #ddd;
+    background: #b6d3cf;
 }
 
 .mute.muted {
@@ -206,5 +227,78 @@ h1 {
 }
 
 .play-pause:hover {
-    background: #ddd;
+    background: #b6d3cf;
+}
+
+button {
+    border-radius: 4px;
+}
+
+.visual-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.visual {
+    height: 200px;
+    width: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: rgb(247,247,247);
+}
+
+.wavelet-vis {
+    position: absolute;
+    height: 4px;
+    border-radius: 2px;
+    background: #000;
+}
+
+.pan-distro-container {
+    
+}
+
+.pan-distro-container h3 {
+    margin-top: 0;
+    margin-bottom: 4px;
+}
+
+
+
+
+/* Currently this isn't used */
+.visual-y-axis-container {
+    height: 100%;
+    /* width: 50px; */
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    /* position: relative; */
+}
+
+.visual-y-axis-labels {
+    height: 290px;
+    width: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.visual-y-axis-label {
+    height: 20px;
+    transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    display: inline-block;
+}
+
+.visual-y-axis-bar {
+    fill: transparent;
+    stroke: #000;
+    stroke-width: 2px;
+    stroke-linecap: round;
 }
