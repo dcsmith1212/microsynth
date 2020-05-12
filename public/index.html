@@ -8,13 +8,13 @@
 </head>
 
 <body>
-    <div class="header-container container">
+    <div class="header-container blue">
         <p>Microsynth</p>
     </div>
 
-    <div class="main-container">
-        <div class="left-column-container">
-            <div class="keys-container container">
+    <div class="grid">
+        <div class="item h1 w3 blue">
+            <div class="item-content flex-column-center">
                 <div class="accidental-container">
                     <button class="key offset"></button>
                     <button class="key accidental" id="key">C#</button>
@@ -34,8 +34,10 @@
                     <button class="key" id="key">B</button>
                 </div>
             </div>
+        </div>
 
-            <div class="wavelet-ctrl-container container">
+        <div class="item h2 w2 green">
+            <div class="item-content flex-column-center">
                 <h3>Wavelet Controls</h3>
                 <div class="wavelet-range-container">
                     <span>Wavelet spacing:</span>
@@ -50,59 +52,80 @@
             </div>
         </div>
 
-
-        <div class="master-ctrl-container container">
-            <h3>Master Controls</h3>
-            <div class="master-ctrl-subcontainer">
-                <div class="fader-container">
-                    <span>Vol</span>
-                    <input type="range" id="master-gain" class="fader" orient="vertical" min="0" max="2" value="1"
-                        step="0.01">
-                    <span class=numerical>1.00</span>
-                </div>
-                <div class="fader-container">
-                    <span>Pan</span>
-                    <input type="range" id="master-pan" class="fader" orient="vertical" min="-1" max="1" value="0"
-                        step="0.01">
-                    <span class=numerical>0.00</span>
-                </div>
-                <div class="master-btn-container">
-                    <button id="master-mute" class="mute">Mute</button>
-                    <button id="play-pause" class="play-pause">Play</button>
+        <div class="item h2 w2 yellow">
+            <div class="item-content flex-column-center">
+                <h3>Master Controls</h3>
+                <div class="master-ctrl-subcontainer">
+                    <div class="fader-container">
+                        <span>Vol</span>
+                        <input type="range" id="master-gain" class="fader" orient="vertical" min="0" max="2" value="1"
+                            step="0.01">
+                        <span class=numerical>1.00</span>
+                    </div>
+                    <div class="fader-container">
+                        <span>Pan</span>
+                        <input type="range" id="master-pan" class="fader" orient="vertical" min="-1" max="1" value="0"
+                            step="0.01">
+                        <span class=numerical>0.00</span>
+                    </div>
+                    <div class="master-btn-container">
+                        <button id="master-mute" class="mute">Mute</button>
+                        <button id="play-pause" class="play-pause">Play</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="visual-container container">
-        <!-- <div class="visual-y-axis-container">
-            <div class="visual-y-axis-labels">
-                <span class="visual-y-axis-label">100%</span>
-                <span class="visual-y-axis-label">Pan</span>
-                <span class="visual-y-axis-label">-100%</span>
+        <div class="item h2 w3 green">
+            <div class="item-content flex-column-center">
+                <h3>Wavelet Visualization</h3>
+                <div class="visual-container">
+                    <div class="visual-y-axis">
+                        <div class="visual-y-axis-spans">
+                            <span>R</span>
+                            <span>Pan</span>
+                            <span>L</span>
+                        </div>
+                        <svg height="142" width="6" class="visual-axis-bar">
+                            <line x1="0" y1="1" x2="100" y2="1" />
+                            <line x1="0" y1="70" x2="100" y2="70" />
+                            <line x1="0" y1="141" x2="100" y2="141" />
+                            <line x1="5" y1="1" x2="5" y2="141" />
+                        </svg>
+                    </div>
+                    <div class="visual">
+                        <div class="wavelet-vis"></div>
+                    </div>
+                </div>
+                <div class="visual-x-axis">
+                    <svg height="20" width="240" class="visual-axis-bar">
+                        <line x1="1" y1="10" x2="240" y2="10" />
+                        <line x1="235" y1="5" x2="240" y2="10" />
+                        <line x1="235" y1="15" x2="240" y2="10" />
+                    </svg>
+                    <span>Time</span>
+                </div>
             </div>
-            <svg height="300" width="16" class="visual-y-axis-bar">
-                <line x1="0" y1="2" x2="100" y2="2" />
-                <line x1="0" y1="150" x2="100" y2="150" />
-                <line x1="0" y1="298" x2="100" y2="298" />
-                <line x1="8" y1="2" x2="8" y2="298" />
-            </svg>
-        </div> -->
-        <div class="visual">
-            <div class="wavelet-vis"></div>
+        </div>
+
+
+
+        <div class="item h1 w2 yellow">
+            <div class="item-content flex-column-center">
+                <h3>Pan Distribution</h3>
+                <div class="radio-and-label">
+                    <input type="radio" id="uniform" name="pan-distro" value="uniform">
+                    <label for="uniform">Uniform</label><br>
+                    <input type="radio" id="normal" name="pan-distro" value="normal">
+                    <label for="normal">Normal (Gaussian)</label><br>
+                </div>
+            </div>
         </div>
 
     </div>
 
-    <div class="pan-distro-container container">
-        <h3>Pan Distribution</h3>
-        <input type="radio" id="uniform" name="pan-distro" value="uniform">
-        <label for="uniform">Uniform</label><br>
-        <input type="radio" id="normal" name="pan-distro" value="normal">
-        <label for="normal">Normal (Gaussian)</label><br>
-    </div>
-
-    <!-- <script src="https://unpkg.com/wavesurfer.js"></script> -->
+    <script src="https://unpkg.com/web-animations-js@2.3.2/web-animations.min.js"></script>
+    <script src="https://unpkg.com/muuri@0.8.0/dist/muuri.js"></script>
     <script src="/scripts/bundle.js"></script>
 </body>
 

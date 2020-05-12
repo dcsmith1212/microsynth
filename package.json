@@ -19,6 +19,8 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-polyfill": "^6.26.0",
     "live-server": "^1.2.1",
+    "muuri": "^0.8.0",
+    "web-animations-js": "^2.3.2",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3"

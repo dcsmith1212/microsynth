@@ -7,37 +7,34 @@
 }
 
 body {
-    background-image: linear-gradient(
-        0deg,
-        rgba(247,247,247,1) 23.8%,
-        rgba(22, 126, 145, 0.377) 92%
-    );
+    background-color: #fff;
     height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 0;
-}
-
-.container {
-    background: rgb(247,247,247);
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px 0 rgba(26, 167, 143, 0.6);
-    padding: 15px 15px;
+    position: relative;
+    background: rgb(224, 224, 224);
 }
 
 .header-container {
-    padding: 32px 32px;
-    height: 70px;
+    border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 20px 0;
+    margin: 10px;
+    width: 220px;
+    height: 100px;
+    min-height: 100px;
+    max-height: 100px;
+    background: rgb(243,243,243);
+    box-shadow: 0 6px 8px 0 rgba(0,0,0, 0.4);
+
 }
 
 .header-container p {
+    margin: 0;
     font-size: 26px;
     font-weight: bold;
 }
@@ -53,17 +50,12 @@ body {
     margin-right: 20px;
 }
 
-.keys-container {
-    height: 90px;
-    margin-bottom: 20px;
-}
-
 .key {
-    width: 40px;
+    width: 38px;
     padding: 5px 0;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 800;
-    background: rgb(250, 250, 250);
+    background: rgb(243, 243, 243);
     border: 1px solid #333;
 }
 
@@ -134,10 +126,11 @@ body {
     justify-content: space-between;
     height: 150px;
     margin-right: 10px;
+
 }
 
 .fader-container span.numerical {
-    background: rgb(250, 250, 250);
+    background: rgb(243, 243, 243);
     padding: 2px 10px;
     width: 60px;
     border-radius: 2px;
@@ -206,7 +199,7 @@ body {
     width: 50px;
     padding: 5px 8px;
     border: 1px solid #333;
-    background: rgb(250, 250, 250);
+    background: rgb(243, 243, 243);
     margin-bottom: 10px;
 }
 
@@ -223,7 +216,7 @@ body {
     border: 1px solid #333;
     height: 36px;
     width: 50px;
-    background: rgb(250, 250, 250);
+    background: rgb(243, 243, 243);
 }
 
 .play-pause:hover {
@@ -236,18 +229,15 @@ button {
 
 .visual-container {
     display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
+    border: none;
+    border-radius: 4px;
 }
 
 .visual {
-    height: 200px;
-    width: 500px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    height: 142px;
+    width: 306px;
     position: relative;
-    background: rgb(247,247,247);
+    display: flex;
 }
 
 .wavelet-vis {
@@ -255,6 +245,55 @@ button {
     height: 4px;
     border-radius: 2px;
     background: #000;
+}
+
+.visual-y-axis {
+    height: 142px;
+    width: 30px;
+    background: aqua;
+    display: flex;
+    justify-content: right;
+}
+
+.visual-y-axis .visual-y-axis-spans {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.visual-y-axis span {
+    color: black;
+    font-size: 8px;
+    margin-left: auto;
+}
+
+.visual-y-axis .visual-axis-bar {
+    margin-left: 5px;
+}
+
+.visual-axis-bar {
+    fill: transparent;
+    stroke: #000;
+    stroke-width: 1px;
+    stroke-linecap: round;
+}
+
+.visual-x-axis {
+    width: 306px;
+    height: 20px;
+    background: aquamarine;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.visual-x-axis svg {
+    margin-right: 10px;
+}
+.visual-x-axis span {
+    color: black;
+    font-size: 14px;
 }
 
 .pan-distro-container {
@@ -268,37 +307,98 @@ button {
 
 
 
-
-/* Currently this isn't used */
-.visual-y-axis-container {
-    height: 100%;
-    /* width: 50px; */
-    margin-right: 10px;
-    display: flex;
-    align-items: center;
-    /* justify-content: center; */
-    /* position: relative; */
+.grid {
+    position: relative;
+    width: 960px;
+    max-width: 960px;
 }
 
-.visual-y-axis-labels {
-    height: 290px;
-    width: 30px;
+.item {
+    display: block;
+    position: absolute;
+    width: 220px;
+    height: 100px;
+    margin: 10px;
+    z-index: 1;
+    border-radius: 4px;
+    background: #fff;
+    box-shadow: 0 6px 8px 0 rgba(0,0,0, 0.4);
+}
+
+.item.muuri-item-dragging {
+    z-index: 3;
+}
+
+.item.muuri-item-releasing {
+    z-index: 2;
+}
+
+.item.muuri-item-hidden {
+    z-index: 0;
+}
+
+.item.h1 {
+    height: 100px;
+}
+
+.item.h2 {
+    height: 220px;
+}
+
+.item.w1 {
+    width: 100px;
+}
+
+.item.w2 {
+    width: 220px;
+}
+
+.item.w3 {
+    width: 340px;
+}
+
+.item.w4 {
+    width: 460px;
+}
+
+.item.w5 {
+    width: 580px;
+}
+
+.green {
+    border: 2px solid #2ac06d;
+    color: #2ac06d;
+}
+
+.blue {
+    border: 2px solid #4A9FF9;
+    color: #4A9FF9;
+}
+
+.yellow {
+    border: 2px solid rgb(223, 147, 8);
+    color: rgb(223, 147, 8);
+}
+
+.item-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    background: rgb(243, 243, 243);
+}
+
+.item-content h3 {
+    margin: 0;
+}
+
+.flex-column-center {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
 }
 
-.visual-y-axis-label {
-    height: 20px;
-    transform: rotate(-90deg);
-    -ms-transform: rotate(-90deg);
-    -webkit-transform: rotate(-90deg);
-    display: inline-block;
-}
-
-.visual-y-axis-bar {
-    fill: transparent;
-    stroke: #000;
-    stroke-width: 2px;
-    stroke-linecap: round;
+h3 {
+    background: rgb(243,243,243);
 }

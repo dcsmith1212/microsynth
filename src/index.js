@@ -11,6 +11,13 @@ const visualContainer = document.querySelector('.visual');
 const panUniformRadio = document.getElementById('uniform');
 const panNormalRadio = document.getElementById('normal');
 
+const grid = new Muuri('.grid', {
+    dragEnabled: true,
+    dragStartPredicate: function (item, event) {
+        if (!event.isFinal && ['INPUT', 'BUTTON'].includes(event.target.nodeName)) return false;
+        return Muuri.ItemDrag.defaultStartPredicate(item, event);
+    }
+});
 
 const activeKeys = {};
 
@@ -23,8 +30,8 @@ const masterPanNode = new StereoPannerNode(audioCtx, pannerOpts);
 masterGainNode.connect(masterPanNode);
 masterPanNode.connect(audioCtx.destination)
 
-const visualWidth = 500;
-const visualHeight = 200;
+const visualWidth = 306;
+const visualHeight = 142;
 visualContainer.style.width = visualWidth;
 visualContainer.style.height = visualHeight;
 
@@ -87,7 +94,8 @@ function generateRandomVisual(lengthSldrVal, waveletSpacing) {
 generateRandomVisual(waveletLengthSldr.value, waveletSpacingSldr.value);
 
 // Master controls 
-masterGainCtrl.addEventListener('input', function () {
+masterGainCtrl.addEventListener('input', function (e) {
+    console.log(e.target.nodeName);
     masterGainNode.gain.value = this.value;
     const sliderValueSpan = masterGainCtrl.parentElement.querySelector('.numerical');
     sliderValueSpan.textContent = this.value;
@@ -98,7 +106,7 @@ masterMuteCtrl.addEventListener('click', function () {
     this.classList.toggle('muted')
 }, false);
 
-masterPanCtrl.addEventListener('input', function () {
+masterPanCtrl.addEventListener('input', function (e) {
     masterPanNode.pan.value = this.value;
     const sliderValueSpan = masterPanCtrl.parentElement.querySelector('.numerical');
     sliderValueSpan.textContent = this.value;
@@ -115,7 +123,6 @@ waveletLengthSldr.addEventListener('input', function () {
 let meanWaitTime = 0.2;
 waveletSpacingSldr.addEventListener('input', function () {
     meanWaitTime = parseFloat(this.value);
-    console.log(waveletLengthSldr);
     generateRandomVisual(waveletLengthSldr.value, this.value);
 })
 
